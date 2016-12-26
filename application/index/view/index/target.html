@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <p align='center' style='line-height: 8px;font-size: 12px'>
+        天气：晴 北京：良 ** 户外：良 ** 平潭：优 **
+    </p>
+</body>
+</html>
+<script type="text/javascript" src="/tp5/public/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+    setInterval(update, 5000);
+
+    function update() {
+        $.ajax({
+            type : 'get',
+            dataType : 'json',
+            url : 'http://localhost/tp5/public/index/index/ajaxGetTargetData',
+            success : function (res) {
+                var str = '';
+                if (res.errno == 0) {
+                    for (var key in res.msg) {
+                        str += '天气：' + key + res.msg[key];
+                    }
+                }
+                else {
+                    str = '获取天气出错';
+                }
+                $('p').text(str);
+            }
+        });
+
+    }
+</script>
